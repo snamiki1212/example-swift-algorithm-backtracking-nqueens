@@ -67,14 +67,13 @@ func doSolve8QueensFirst(board: inout Board, numQueen: Int, row: Int) -> String 
     if(row > board.size - 1) { return "" }
     
     // recursive case
-    var result = ""
     for thisCol in 0...(board.size - 1) {
         if board.isSafe(row: row, col: thisCol) {
             board.place(row: row, col: thisCol)
-            result = doSolve8QueensFirst(board: &board, numQueen: numQueen - 1, row: row + 1) // go to next row
+            let result = doSolve8QueensFirst(board: &board, numQueen: numQueen - 1, row: row + 1) // go to next row
+            if result != "" { return result }
             board.remove(row: row, col: thisCol)
         }
-        if result != "" { break; }
     }
-    return result
+    return ""
 }
