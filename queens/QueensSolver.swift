@@ -15,9 +15,43 @@ import Foundation
 /// - You are allowed to change the function header (args or return type)
 /// - Your total recursive calls should not exceed 120 times.
 
-//var count = 0
-func solveQueens(board: inout Board) {
-//	count += 1
-	
+var total = 0;
+var numOfPossibility = 0;
+
+enum Type: String {
+    case all
+    case first
+}
+
+func solve8Queens(board: inout Board, type: Type) {
+    total = 0
+    numOfPossibility = 0
+    switch type {
+    case .all:
+        doSolve8QueensAll(board: &board, numQueen: 8, row: 0)
+    case .first:
+        // TODO:
+        print("first case")
+    }
+}
+
+func doSolve8QueensAll(board: inout Board, numQueen: Int, row: Int) {
+    total+=1;
+    
+    // base case
+    if(numQueen <= 0) {
+        numOfPossibility+=1
+        return print(board.description)
+    }
+    if(row > board.size - 1) { return }
+    
+    // recursive case
+    for thisCol in 0...(board.size - 1) {
+        if board.isSafe(row: row, col: thisCol) {
+            board.place(row: row, col: thisCol)
+            doSolve8QueensAll(board: &board, numQueen: numQueen - 1, row: row + 1) // go to next row
+            board.remove(row: row, col: thisCol)
+        }
+    }
 }
 
