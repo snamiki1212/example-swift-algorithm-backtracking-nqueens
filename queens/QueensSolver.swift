@@ -16,7 +16,7 @@ import Foundation
 /// - Your total recursive calls should not exceed 120 times.
 
 var total = 0;
-var numOfPossibility = 0;
+var numOfCase = 0;
 
 enum Type: String {
     case all
@@ -25,7 +25,7 @@ enum Type: String {
 
 func solve8Queens(board: inout Board, type: Type) {
     total = 0
-    numOfPossibility = 0
+    numOfCase = 0
     switch type {
     case .all:
         doSolve8QueensAll(board: &board, numQueen: 8, row: 0)
@@ -40,7 +40,7 @@ func doSolve8QueensAll(board: inout Board, numQueen: Int, row: Int) {
     
     // base case
     if(numQueen <= 0) {
-        numOfPossibility+=1
+        numOfCase+=1
         return print(board.description)
     }
     if(row > board.size - 1) { return }
@@ -61,7 +61,7 @@ func doSolve8QueensFirst(board: inout Board, numQueen: Int, row: Int) -> String 
     
     // base case
     if(numQueen <= 0) {
-        numOfPossibility+=1
+        numOfCase+=1
         return board.description;
     }
     if(row > board.size - 1) { return "" }
