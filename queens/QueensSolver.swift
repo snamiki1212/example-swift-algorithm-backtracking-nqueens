@@ -30,8 +30,8 @@ func solve8Queens(board: inout Board, type: Type) {
     case .all:
         doSolve8QueensAll(board: &board, numQueen: 8, row: 0)
     case .first:
-        // TODO:
-        print("first case")
+        let result = doSolve8QueensFirst(board: &board, numQueen: 8, row: 0)
+        print(result)
     }
 }
 
@@ -55,3 +55,26 @@ func doSolve8QueensAll(board: inout Board, numQueen: Int, row: Int) {
     }
 }
 
+
+func doSolve8QueensFirst(board: inout Board, numQueen: Int, row: Int) -> String {
+    total+=1;
+    
+    // base case
+    if(numQueen <= 0) {
+        numOfPossibility+=1
+        return board.description;
+    }
+    if(row > board.size - 1) { return "" }
+    
+    // recursive case
+    var result = ""
+    for thisCol in 0...(board.size - 1) {
+        if board.isSafe(row: row, col: thisCol) {
+            board.place(row: row, col: thisCol)
+            result = doSolve8QueensFirst(board: &board, numQueen: numQueen - 1, row: row + 1) // go to next row
+            board.remove(row: row, col: thisCol)
+        }
+        if result != "" { break; }
+    }
+    return result
+}
